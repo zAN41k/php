@@ -7,8 +7,9 @@ height и width соответственно.
 
 
 function img($url,$alt='Simle txt',$width='500px',$height='600px') {
- <img src="$url" alt=$alt style=width:$width;height:$height>
-
+ 
+<img src="$url" alt=$alt style=width:$width;height:$height>
+ 
 }  
 
 echo img(exaple.com);
