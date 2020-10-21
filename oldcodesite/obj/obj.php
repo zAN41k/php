@@ -1,7 +1,20 @@
 <?php
 class Foo {
-private $name;
-private $price;
+private $name=string;
+private $price=int;
+
+//создаем конструктор
+public function __construct($name,$price) {
+	$this->name=$name;
+	$this->price=$price;
+}
+
+public function printItem($string) {     //определяем метом в основном классе, который принимает параметр строку и выведем нам FOO строка сообщение
+	echo 'Foo: ' . $string . PHP_EOL;
+  }
+public function phpPrint(){              //определяем метод, который будет выводить PHP принт
+	echo 'PHP print'. PHP_EOL;
+}
 
 public function setName(?string $name) {
 	$this->name=$name;
@@ -21,43 +34,35 @@ public function getprice() {
 
 }
 }
+//next class extend foo
 
-$Bar = new Foo();
-$Bar->setName("Hehe");
-$Bar->setPrice(50);
-
-var_dump($Bar->getName());
-print "\n";
-var_dump($Bar->getPrice());
-
-
-
-class BaseClass {
-   function __construct() {
-       print "Конструктор класса BaseClass\n";
-   }
+class Bar extends Foo {
+public function printItem($string) {
+	echo 'Bar:' . $string . PHP_EOL;   //переопределяем метро printItem заменяя в наследнике Foo на Bar, тем самым меняя метод
 }
 
-class SubClass extends BaseClass {
-   function __construct() {
-       parent::__construct();
-       print "Конструктор класса SubClass\n";
-   }
+public function phpPrint(){	
+	echo 'PHP print переопределен в наследнике' . PHP_EOL; //переопредиляем метод phpPrint чтобы он выводил другое сообщение, можно было так же оставить его неизменным
+ 
+}
 }
 
-class OtherSubClass extends BaseClass {
-    // наследует конструктор BaseClass
-}
+$foo= new Foo();
+$bar= new Bar();
+$foo->printItem('Yes');
+$foo->phpPrint();
 
-// Конструктор класса BaseClass
-$obj = new BaseClass();
+$bar->printItem('No');
+$bar->phpPrint();
 
-// Конструктор класса BaseClass
-// Конструктор класса SubClass
-$obj = new SubClass();
 
-// Конструктор класса BaseClass
-$obj = new OtherSubClass();
+
+
+
+
+
+
+
 
 
 
