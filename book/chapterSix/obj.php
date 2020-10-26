@@ -1,33 +1,22 @@
-<?php
-class Entree {
-	public $name;
-	public $ingredients = array();
-	public function __construct($name, $ingredients) {
-		$this->name = $name;
-		$this->ingredients = $ingredients;
-	}
-	public function hasIngredient($ingredient) {
-		return in_array($ingredient, $this->ingredients);
-	}
-}
-
-
+<?php  
+//класс ингридиент , который будем использовать , для того чтобы следить за ингрелиентами
 class Ingredient{
-	public $name;
-	public $coast;
-        public function __construct($name, $cost)
+	public $name; // наименование ингр
+	public $coast; // его стоимость
+
+        public function __construct($name, $cost) // конструктор который используем при инициализации обьекта , в нем указываем имя ингридиента + его стоимость
     {
-        $this->name = $name;
+        $this->name = $name;         
         $this->cost = $cost;
     }
  
 
-        public function setCoast($coast){
-		$this->coast=$coast;
+        public function setCost($cost){  // указываем метод с помощью которого будем изменять стоимость блюда, используется для того чтобы сокрыть прямой доступ к cost
+		$this->cost=$cost;
 	}
-        
-        public function getCoast(){
-	return $this->coast;
+        				
+        public function getCost(){ // метод который используем, для того чтобы получить стоимость ингридиента
+	return $this->cost;
 	} 
 }
 
@@ -35,35 +24,31 @@ class Ingredient{
 //класс должен принимать объекты типа Ingredient вместо символьной строки с наимено-
 //ваниями ингредиентов для их обозначения. Введите в этот подкласс метод, возвращающий
 //общую стоимость блюда.
-
-class podClass {
-     public $ingredients=[];
-     public function __construct(array $ingredients)
-    {
+//создаем класс который будет принимать ингридиенты и получать их стоимость суммарную
+class Entree {
+     public $ingredients=[]; 
+     public function __construct(array $ingredients){   // при инициализации класса будут использоваться обьекты  класса ингридиент
         $this->ingredients = $ingredients;
     }
 
     
-     public function sumCoast() {
-         $sum=0;
-         foreach($this->ingredients as $ingredient) {
-         $sum+=$ingredient->coast;
-	}  return $sum;        
+     public function sumCost() { // в классе блюд, создаем функцию которая будет считать стоимость всех ингридиентов, из которого состоит блюда
+         $sum=0; 
+         foreach($this->ingredients as $ingredient) {// перебираем все ингридиенты из которых будет состоять Entree и берем только значение стоимости ингридиента и суммируем, возвращаем сумму
+         $sum+=$ingredient->cost;
+	}  return $sum;        //возвращаем сумму обьектов класса Ingredients cost 
 
 	}  
 
 }
 
-$ingr1 = new Ingredient('potatoes', 5);
+$ingr1 = new Ingredient('potatoes', 7); // происходит инициализация обьекта вида ингридиент1 , указываем имя и стоимость 
 $ingr2 = new Ingredient('carrots', 10);
 $ingr3 = new Ingredient('onions', 15);
 
-//var_Dump($ingr1);
-var_dump($ingr1->$ingridietns);
-$ingr1->getCoast();
-$soup = new podClass([$ingr1,$ingr2,$ingr3]);
+$soup = new Entree([$ingr1,$ingr2,$ingr3]); // происходит инициализация блюда , которое состоит из классов ингридиент
 
-echo $soup->sumCoast();
+echo 'Стоимость блюда равна ', $soup->sumCost();  // метод который возвращает стоимость блюд
 
 
 
