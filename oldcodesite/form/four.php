@@ -19,19 +19,11 @@
         
         if(loginTrue($_REQUEST['login']) {
         
-        }
-        
+        }     
         
         
         $password=trim($_REQUEST['password']);
-        $password2=trim($_REQUEST['password2']);                       
-        
-        
-        
-        
-         
-        
-        
+        $password2=trim($_REQUEST['password2']);                             
         
    }
   
