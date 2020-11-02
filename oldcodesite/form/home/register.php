@@ -25,30 +25,36 @@
 		$password=trim(strip_tags($_REQUEST['password']));
 		$repeat_pass=trim(strip_tags($_REQUEST['password2']));
 
-
-			if(strlen($login)>3 and strlen($login)<12) {
-				echo 'Логин подходит';
-				} else {
-					echo 'Введите правильный логин';
-					 }
-
-		        if(strlen($password)>5 and strlen($password)<9) {
-                          echo 'Пароль подходит';
-                          }else {
-                          echo 'Пароль не подходит';
-                  }
+                 if(validLogin($login) and validPass($password,$repeat_pass)){
+			echo 'Авторизация прошла успешно!';
+		} else {
+			echo 'Повторите попытку';
+	}
 	
 	
-			if($password==$repeat_pass) {
-				echo 'Пароль и подтверждение совпадают';
-		}else {
-			echo 'Подтверждение пароля не совпадает';
 			}					
 
 		
+		function validLogin($str){
+		if(strlen($str)>3 and strlen($str)<12) {
+		return true;	
+			}else {
+			echo 'Логин должен быть 3х и меньше 12ти: ';
+			return false;
+		}
+	}
+
+                function validPass($str,$repeat){
+			if((strlen($str)>5 and strlen($str)<9) and ($str==$repeat)){
+			return true;
+			}else {
+			echo 'Пароли не совпадают, пароль должен быть больше 5ти и меньше 9: ';
+			return false;	
+			}
+	}
+               
+
 			
-}
- 
 
 
 
