@@ -1,7 +1,3 @@
-
-
-
-
 <?php
 error_reporting(E_ALL);
 
@@ -15,10 +11,10 @@ error_reporting(E_ALL);
 отобразить следующее: 4*2 = 8.
 */
 if(isset($_REQUEST['submit'])) {
-        if(validate_form()){
-                process_form();
+        if($form_errors=validate_form()){
+                show_form($form_errors);
      }  else {
-		show_form();
+		process_form();
 	} 
    }  else {
     		show_form();
@@ -49,18 +45,38 @@ function process_form(){
 }
 
 function validate_form(){
-       if(filter_var($_REQUEST['one'],FILTER_VALIDATE_INT) and filter_var($_REQUEST['two'],FILTER_VALIDATE_INT)){
-          return false;
-          }else {
+   $errors=array();
+     	 $one = filter_input(INPUT_POST, 'one', FILTER_VALIDATE_INT);
+  	 if (is_null($one) || ($one === false)) {
+   
+    	 $errors[] = 'Введите число в первое поле ';
+        }
+
+	 $two = filter_input(INPUT_POST, 'two', FILTER_VALIDATE_INT);
+          if (is_null($two) || ($two === false)) {
+     
+           $errors[] = 'Введите число во второе поле ';
+          }
+
+        $two2 = filter_input(INPUT_POST, 'two', FILTER_VALIDATE_INT);
+        $del=$_REQUEST['arifm'];
+       if (($del == 'delete') AND ($two2 === 0)) {
+       
+             $errors[] = 'На ноль делить нельзя  ';
+            }
+     return $errors;
+  }
+    
   
-          echo "Число";
-          return true;
-  }
-  }
    
 
-function show_form() {
-print<<<_HTML_
+function show_form($errors = array()) {
+ if ($errors) {
+        print 'Please correct these errors: <ul><li>';
+        print implode('</li><li>', $errors);
+        print '</li></ul>';
+    }
+   print<<<_HTML_
 <form action="" method="POST">
       <input type="text" name="one" placeholder="Введите первое число"><br>
       <input type="text" name="two" placeholder="Введите второе число"><br>
@@ -75,7 +91,6 @@ print<<<_HTML_
 
 _HTML_;
 }
-
 
 
 
