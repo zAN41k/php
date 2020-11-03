@@ -34,66 +34,69 @@ function show_form($errors = array()) {
     }
    print<<<_HTML_
 <form action="" method="POST">
-      <input type="text" name="one" placeholder="Введите первое число"><br>
-      <input type="text" name="two" placeholder="Введите второе число"><br>
-        <select name="arifm">
-        <option>plus</option>
-	<option>minus</option>
-	<option>umnoj</option>
-	<option>delete</option>
-</select>      
- <input type="submit" name="submit">
+        <input type="text" name="address_out" placeholder="Адрес отправителя"><br>
+        <input type="text" name="address_in" placeholder="Адрес получателя"><br>
+    	<input type="text" name="height" placeholder="Высота посылки"><br>
+	<input type="text" name="width" placeholder="Ширина посылки"><br>
+	<input type="text" name="length" placeholder="Длина посылки"><br>
+        <input type="text" name="weight" placeholder="Вес посылки"><br>
+        <input type="text" name="state" placeholder="Штат"><br>
+	<input type="text" name="postal" placeholder="Почтовый индекс"><br>
+
+        <input type="submit" name="submit">
       </form> 
 
 _HTML_;
 }
 ###################################################################
+
+function process_form(){
+         $address_out=trim(strip_tags($_REQUEST['address_out']));
+          $address_in=trim(strip_tags($_REQUEST['address_in']));
+          $height=trim(strip_tags($_REQUEST['height']));
+         $width=trim(strip_tags($_REQUEST['width']));
+         $length=trim(strip_tags($_REQUEST['length']));
+         $weight=trim(strip_tags($_REQUEST['weight']));
+         $state=trim(strip_tags($_REQUEST['state']));
+         $postal=trim(strip_tags($_REQUEST['postal']));
+ 
+         }
+####################################################################
+
+
+
 function validate_form(){
-   $errors=array();
-     	 $one = filter_input(INPUT_POST, 'one', FILTER_VALIDATE_INT);
-  	 if (is_null($one) || ($one === false)) {
-   
-    	 $errors[] = 'Введите число в первое поле ';
+	$errors=[];
+
+     	 $one = filter_input(INPUT_POST, 'height', FILTER_VALIDATE_INT); //валидация размера посылки
+  	 if (is_null($one) || ($one === false) || ($one>91)) {
+   	    	 $errors[] = 'Введите числовое значение от 0 до 91 в поле высота ';
         }
 
-	 $two = filter_input(INPUT_POST, 'two', FILTER_VALIDATE_INT);
-          if (is_null($two) || ($two === false)) {
-     
-           $errors[] = 'Введите число во второе поле ';
-          }
+	 $two = filter_input(INPUT_POST, 'width', FILTER_VALIDATE_INT);
+         if (is_null($two) || ($two === false) || ($two>91)) {
+                $errors[] = 'Введите числовое значение от 0 до 91 в поле ширина ';
+        }
 
-        $two2 = filter_input(INPUT_POST, 'two', FILTER_VALIDATE_INT);
-        $del=$_REQUEST['arifm'];
-       if (($del == 'delete') AND ($two2 === 0)) {
-       
-             $errors[] = 'На ноль делить нельзя  ';
+        $three = filter_input(INPUT_POST, 'length', FILTER_VALIDATE_INT);
+        if (is_null($three) || ($three === false) || ($three>91)) {
+              $errors[] = 'Введите числовое значение от 0 до 91 в поле длина ';
             }
+
+         $four = filter_input(INPUT_POST, 'weight', FILTER_VALIDATE_INT);
+         if (is_null($four) || ($four === false) || ($four>=68)) {
+              $errors[] = 'Введите числовое значение от 0 до 68 в поле вес ';
+              }
+
+
+
+     var_dump($errors);      
      return $errors;
+
   }
 ###################################################################
-function process_form(){
-       $one=trim(strip_tags($_REQUEST['one']));
-       $two=trim(strip_tags($_REQUEST['two']));
-       $arifmetika=trim(strip_tags($_REQUEST['arifm'])); 
-        
-       //echo $_REQUEST['arifm']; 
-       switch ($arifmetika) {
-	case 'plus': 
-           echo "Решение: $one + $two = ",$one+$two;
-	break;	
-        case 'minus':
-           echo "Решение: $one - $two = ",$one-$two;
-         break;
-         case 'umnoj':
-             echo "Решение: $one * $two = ",$one*$two;
-           break;
-	case 'delete':
-               echo "Решение: $one / $two = ",$one/$two;
-             break;
-	}        
 
 
-}
 
 
 
