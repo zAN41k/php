@@ -88,6 +88,23 @@ function validate_form(){
               $errors[] = 'Введите числовое значение от 0 до 68 в поле вес ';
               }
 
+	  $address_out=trim(strip_tags($_REQUEST['address_out']));
+          if (is_null($address_out) || (!preg_match('/[^A-Za-z0-9]/', $address_out))) {
+        	$errors[] = 'Введите адрес отправителя ';
+                }
+
+       	$address_in=trim(strip_tags($_REQUEST['address_in']));
+          if (is_null($address_in) || (!preg_match('/[^A-Za-z0-9]/', $address_in))) {
+                  $errors[] = 'Введите адрес получателя ';
+                  }
+	
+	 $state=trim(strip_tags($_REQUEST['state'])); 
+          if (is_null($state) || (!preg_match('/[^A-Za-z0-9]/', $state)) || !inArr($state) ) {
+                 echo $state;   
+		 $errors[] = 'Введите ШТАТ ';
+                    }
+
+                 
 
 
      var_dump($errors);      
@@ -95,8 +112,14 @@ function validate_form(){
 
   }
 ###################################################################
+	 
 
-
+ function inArr($str) {
+          $arr=[1,2,3,4,5,'M'];
+          if(in_array($str,$arr)) {
+          return true;
+   } else {return false;}
+  }
 
 
 
