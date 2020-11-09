@@ -14,9 +14,23 @@
 
 
 */
+?>
+<?php 
+if(!isset($_REQUEST['submit']))  {
 
+?> 
+       
+<?php
+
+     }
+
+?>
+
+ 
+<?php
 if(isset($_REQUEST['submit'])) {
-        if($form_errors=validate_form()){
+       
+     if($form_errors=validate_form()){
                 show_form($form_errors);
      }  else {
 		process_form();
@@ -50,8 +64,12 @@ _HTML_;
 }
 ###################################################################
 
+
+
+
+
 function process_form(){
-         $address_out=trim(strip_tags($_REQUEST['address_out']));
+          $address_out=trim(strip_tags($_REQUEST['address_out']));
           $address_in=trim(strip_tags($_REQUEST['address_in']));
           $height=trim(strip_tags($_REQUEST['height']));
          $width=trim(strip_tags($_REQUEST['width']));
@@ -59,16 +77,25 @@ function process_form(){
          $weight=trim(strip_tags($_REQUEST['weight']));
          $state=trim(strip_tags($_REQUEST['state']));
          $postal=trim(strip_tags($_REQUEST['postal']));
- 
+            
+        echo "Адрес отправителя: $address_out ";
+        print "\n";
+        echo "Адрес получателя : $address_in ";
+        print "\n";
+        echo "Высота:$height Ширина:$width Длина:$length";
+        print "\n"; 
+        echo "Вес посылки:$weight ";
+        print "\n";
+	echo "Штат: $state Индекс: $postal";
          }
 ####################################################################
 
 
-
 function validate_form(){
 	$errors=[];
-
-     	 $one = filter_input(INPUT_POST, 'height', FILTER_VALIDATE_INT); //валидация размера посылки
+     	$arrayState = ['Montana','Alaska'];
+        $arraypostal = [12345,23456,54321];
+	$one = filter_input(INPUT_POST, 'height', FILTER_VALIDATE_INT); //валидация размера посылки
   	 if (is_null($one) || ($one === false) || ($one>91)) {
    	    	 $errors[] = 'Введите числовое значение от 0 до 91 в поле высота ';
         }
@@ -99,27 +126,25 @@ function validate_form(){
                   }
 	
 	 $state=trim(strip_tags($_REQUEST['state'])); 
-          if (is_null($state) || (!preg_match('/[^A-Za-z0-9]/', $state)) || !inArr($state) ) {
-                 echo $state;   
+          if ((!preg_match('/[^A-Za-z0-9]/', $state)) && !in_array($state,$arrayState)) {
 		 $errors[] = 'Введите ШТАТ ';
                     }
 
-                 
-
-
-     var_dump($errors);      
+          $postal = filter_input(INPUT_POST, 'postal', FILTER_VALIDATE_INT);
+           if ((strlen($postal)!=5) && !in_array($postal,$arrayPostal)) {
+                $errors[] = 'Введите почтовый индекс формата 12345 ';
+                }
+       
+      
      return $errors;
 
   }
+
 ###################################################################
+
+
 	 
 
- function inArr($str) {
-          $arr=[1,2,3,4,5,'M'];
-          if(in_array($str,$arr)) {
-          return true;
-   } else {return false;}
-  }
 
 
 

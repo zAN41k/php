@@ -21,9 +21,9 @@ foreach($arr as $v) {
  
 //yesNo($str);
 
-$str=0;
+$str='Mon';
 function inArr($str) {
-        $arr=[1,2,3,4,5,6];
+        $arr=[1,2,3,4,5,6,'Mon'];
   	if(in_array($str,$arr)) {
         return true; 
  } else {return false;}
