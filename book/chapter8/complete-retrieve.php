@@ -5,7 +5,7 @@ require 'FormHelper.php';
 
 // Connect to the database
 try {
-    $db = new PDO('sqlite:/tmp/restaurant.db');
+    $db = new PDO('mysql:host=172.21.0.2;port=3306;dbname=restaurant','root','example');
 } catch (PDOException $e) {
     print "Can't connect: " . $e->getMessage();
     exit();
