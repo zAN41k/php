@@ -4,3 +4,10 @@ insert INTO dishes values (3,'Dried Mulberries',3.00,0);
 insert INTO dishes values (4,'Eggplant with Chili Sauce',6.50,1);
 insert INTO dishes values (5,'Red Bean Bun',1.00,0);
 insert INTO dishes values (6,'General Tso''s Chicken',5.50,1);
+
+CREATE TABLE dishes (
+dish_id INTEGER PRIMARY KEY,
+dish_name VARCHAR(255),
+price DECIMAL(4,2),
+is_spicy INT
+)
