@@ -1,0 +1,11 @@
+alice@example.com
+bandersnatch@example.org
+charles@milk.example.com
+dodgson@turtle.example.com
+alice@example.com
+bandersnatch@example.org
+harles@milk.example.com
+charles@milk.example.com
+charles@milk.example.com
+charles@milk.example.com
+alice@example.com
