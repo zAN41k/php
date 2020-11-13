@@ -39,7 +39,7 @@ catch (PDOException $e) {
 */
 
 try {
-	$db = new PDO('mysql:host=172.21.0.2;port=3306;dbname=restaurant','root','example');
+	$db = new PDO('mysql:host=172.18.0.2;port=3306;dbname=restaurant','root','example');
 	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	$q=$db->exec("select * from dishes");
 //        var_dump($q);

@@ -5,7 +5,7 @@ require 'FormHelper.php';
 
 // Connect to the database
 try {
-    $db = new PDO('mysql:host=172.21.0.2;port=3306;dbname=restaurant','root','example');
+    $db = new PDO('mysql:host=172.18.0.3;port=3306;dbname=restaurant','root','example');
 } catch (PDOException $e) {
     print "Can't connect: " . $e->getMessage();
     exit();
@@ -77,11 +77,22 @@ function process_form($input) {
 
     // Insert the new dish into the table
     try {
+/*
         $stmt = $db->prepare('INSERT INTO dishes (dish_name, price, is_spicy)
                               VALUES (?,?,?)');
         $stmt->execute(array($input['dish_name'], $input['price'],$is_spicy));
+*/     
+        // $db = new PDO('mysql:host=172.18.0.3;port=3306;dbname=restaurant','root','example');
+        // $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+         $a=$input['dish_name'];
+         $b=$input['price'];
+         $stmt = $db->exec ("INSERT INTO dishes (dish_id,dish_name,price,is_spicy)
+                            VALUES(7,$a ,$b, $is_spicy)");
+    }
+
         // Tell the user that we added a dish.
-        print 'Added ' . htmlentities($input['dish_name']) . ' to the database.';
+        print 'Added' . htmlentities($input['dish_name']) . ' to the database.';
     } catch (PDOException $e) {
         print "Couldn't add your dish to the database.";
     }

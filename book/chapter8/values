@@ -6,8 +6,18 @@ insert INTO dishes values (5,'Red Bean Bun',1.00,0);
 insert INTO dishes values (6,'General Tso''s Chicken',5.50,1);
 
 CREATE TABLE dishes (
-dish_id INTEGER PRIMARY KEY,
+dish_id INTEGER PRIMARY KEY AUTO_INCREMENT,
 dish_name VARCHAR(255),
 price DECIMAL(4,2),
 is_spicy INT
 )
+
+
+
+CREATE TABLE restaurant.customers (
+customer_id INTEGER PRIMARY KEY AUTO_INCREMENT,
+name VARCHAR(255),
+phone INT,
+favorite_dish_id INT
+)
+

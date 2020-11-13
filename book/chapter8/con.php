@@ -1,11 +1,17 @@
 <?php
 
 try {
-    $db = new PDO('mysql:host=172.19.0.3;port=3306;dbname=restaurant','root','example');
+    $db = new PDO('mysql:host=172.18.0.2;port=3306;dbname=restaurant','root','example');
     // сделать что-нибудь с объектом в переменной $db
-      var_dump($db->exec("select * from dishes"));
-      var_dump($db);
- 
+   //   var_dump($db->exec("select * from dishes"));
+    //  var_dump($db);
+        $q = $db->query('SELECT dish_name, price
+			 FROM dishes
+			 ORDER BY price');
+          while ($row = $q->fetch()) {
+            print "$row[dish_name], $row[price] \n";
+  }
+
     }
 catch (PDOException $e) {
     print "Couldn't connect to the database: " . $e->getMessage();
@@ -54,9 +60,9 @@ try{
       }  catch (PDOException $e) {
       print ("Не могу вставить значение в таблицу " . $e->getMessage());
   }  
-*/
+
     $q = $db->query('SELECT dish_name, price FROM dishes');
-	while ($row=$q->fetch()) {
+	while ($row = $q->fetch()) {
 	  print "$row[dish_name], $row[price] \n";
 }   
-
+*/
