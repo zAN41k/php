@@ -7,39 +7,29 @@ file_get_contents() используется для извлечения из э
 
 Видоизмените программу из предыдущего упражнения, чтобы воспользоваться расширением
 cURL вместо функции file_get_contents().
+
 */
 
-$json= file_get_contents('http://php.net/releases/?json');
-    if($json===false) {
+$url = "https://www.php.net/releases/?json";
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $url);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+$json=curl_exec($ch);
+curl_close($ch);
+
+
+   if($json === false) {
       echo "Не могу прочитать адресс"; 
 }
     else{
       $arr=json_decode($json, true);
+// var_dump($arr);
       $majorNumber = array_keys($arr);
       rsort($majorNumber);
       $maxNumber= $majorNumber[0];
       $version=$arr[$maxNumber]['version'];
-      print "Последняя версия PHP $version";
+      $data = $arr[$maxNumber]['date'];
+      print "Последняя версия PHP $version вышла в $data";
 }
- 
-/*
-$c = curl_init('http://php.net/releases/?json');
-curl_setopt($c, CURLOPT_RETURNTRASNFER, true);
-$json=curl_exec($c);
 
-    if($json === false) {
-      print "Не могу получить страницу";
-}
-    else{
-      $feed=json_decode($json, true);
-      var_dump($feed);
-      $keys = array_keys($feed);
-      rsort($keys);
-      $maxKey=$keys[0];
-      $version = $feed[$maxKey]['version'];
-      print "Последняя версия PHP это $version";	
-}
-*/
 ?>
-
-
